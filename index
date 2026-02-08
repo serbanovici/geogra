@@ -19,8 +19,12 @@
 <body>
 <h1>Quiz HEPITES - Geografie</h1>
 <div class="quiz-container" id="quiz"></div>
+
 <script>
-    const quizData = [
+let currentQuestion = 0;
+let score = 0;
+
+const quizData = [
   {question: "Stepa este un mediu terestru specific climatului:", options:["temperat oceanic","subtropical","ecuatorial","temperat continental","musonic"], answer:3},
   {question: "Sinteza valorilor tuturor elementelor meteorologice pentru o perioadă de 30 de ani reprezintă:", options:["clima","prognoza","vizibilitatea","vremea","nebulozitatea"], answer:0},
   {question: "În imaginea alăturată este reprezentat un gen de nori, cu mică întindere pe verticală și fără precipitații:", image:"cloud_stratocumulus.jpg", options:["Stratocumulus","Cumulus","Altocumulus","Cirrus","Cirrocumulus"], answer:0},
@@ -66,7 +70,7 @@
   {question: "Vântul local resimțit în București:", options:["Austrul","Foehn","Brizele montane","Crivățul","Vântul Mare"], answer:3},
   {question: "Ciclonul se caracterizează prin presiune:", options:["mare central","uniformă","crește periferie → centru","scăzut central","constantă"], answer:3},
 
-  // Întrebările suplimentare pentru a ajunge la 67
+  // Întrebări suplimentare până la 67
   {question: "Clima ecuatorială se caracterizează prin:", options:["precipitații abundente","precipitații rare","iarnă geroasă","vară toridă","secetă prelungită"], answer:0},
   {question: "Frontul atmosferic rece generează:", options:["ploie torențiale și vijelii","ninge slab","vânt slab","burniță","fără precipitații"], answer:0},
   {question: "Clima mediteraneană este specifică:", options:["sudul Europei","regiunile ecuatoriale","Canada","Siberia","Groenlanda"], answer:0},
@@ -83,7 +87,16 @@
   {question: "Tip de precipitații specifice munților înalți:", options:["ploi orografice","burniță","averse","grindină","ninsoare"], answer:0},
   {question: "Tip de climă specific savanei africane:", options:["subecuatorial","temperat oceanic","mediteranean","ecuatorial","polar"], answer:0}
 ];
-const q = quizData[currentQuestion];
+
+// Funcția pentru afișarea întrebării curente
+function loadQuestion() {
+  const quiz = document.getElementById("quiz");
+  if (currentQuestion >= quizData.length) {
+    quiz.innerHTML = `<h2>Ai terminat quiz-ul! Scorul tău: ${score} / ${quizData.length}</h2>`;
+    return;
+  }
+
+  const q = quizData[currentQuestion];
   let html = `<div class="question"><strong>Întrebarea ${currentQuestion + 1}:</strong> ${q.question}</div>`;
   if (q.image) html += `<img src="${q.image}" alt="Imagine întrebarea">`;
   html += `<ul class="options">`;
@@ -94,16 +107,18 @@ const q = quizData[currentQuestion];
   quiz.innerHTML = html;
 }
 
+// Funcția pentru verificarea răspunsului și trecerea la următoarea întrebare
 function submitAnswer() {
   const options = document.getElementsByName("option");
   let selected = -1;
-  options.forEach((opt) => { if (opt.checked) selected = parseInt(opt.value); });
-  if (selected === -1) { alert("Alege o opțiune!"); return; }
-  if (selected === quizData[currentQuestion].answer) score++;
+  options.forEach(opt => { if(opt.checked) selected = parseInt(opt.value); });
+  if(selected === -1){ alert("Alege o opțiune!"); return; }
+  if(selected === quizData[currentQuestion].answer) score++;
   currentQuestion++;
   loadQuestion();
 }
 
+// Încarcă prima întrebare la start
 loadQuestion();
 </script>
 </body>

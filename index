@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz HEPITES - Geografie</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; background-color: #f0f4f8; color: #1a1a1a; }
+  h1 { text-align: center; }
+  .quiz-container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+  .question { margin-bottom: 15px; }
+  .options { list-style-type: none; padding: 0; }
+  .options li { margin-bottom: 8px; }
+  button { padding: 10px 20px; margin-top: 20px; border: none; background-color: #0077cc; color: white; font-size: 16px; border-radius: 8px; cursor: pointer; }
+  button:hover { background-color: #005fa3; }
+  img { max-width: 100%; height: auto; border-radius: 10px; margin-bottom: 10px; }
+</style>
+</head>
+<body>
+<h1>Quiz HEPITES - Geografie</h1>
+<div class="quiz-container" id="quiz"></div>
+<script>
+    const quizData = [
+  {question: "Stepa este un mediu terestru specific climatului:", options:["temperat oceanic","subtropical","ecuatorial","temperat continental","musonic"], answer:3},
+  {question: "Sinteza valorilor tuturor elementelor meteorologice pentru o perioadă de 30 de ani reprezintă:", options:["clima","prognoza","vizibilitatea","vremea","nebulozitatea"], answer:0},
+  {question: "În imaginea alăturată este reprezentat un gen de nori, cu mică întindere pe verticală și fără precipitații:", image:"cloud_stratocumulus.jpg", options:["Stratocumulus","Cumulus","Altocumulus","Cirrus","Cirrocumulus"], answer:0},
+  {question: "Harta sinoptică de bază reprezintă grafic:", options:["climatul","orografia","vizibilitatea verticală","relieful baric","clima"], answer:3},
+  {question: "Numărul de zile cu cer acoperit pentru luna iulie la stația Sibiu, știind că senin=4,5 zile, noros=21,5 zile:", options:["5,0","6,1","4,9","5,9","8,2"], answer:3},
+  {question: "Linia care unește punctele cu valori egale ale presiunii aerului se numește:", options:["izonefă","izotermă","izohietă","izocronă","izobară"], answer:4},
+  {question: "Zona de separație între două mase de aer cu proprietăți diferite se numește:", options:["câmp baric","front atmosferic","talveg depresionar","mlaștină barometrică","culoar depresionar"], answer:1},
+  {question: "Forma de relief baric cu litera A de pe harta sinoptică reprezintă:", options:["anticiclon","dorsala anticiclonică","șa barometrică","talveg depresionar","ciclon"], answer:0},
+  {question: "Statul cu capitala la New Delhi se caracterizează printr-un climat:", options:["ecuatorial","subpolar","musonic","polar","tropical arid"], answer:2},
+  {question: "Izonefa este linia care unește punctele cu aceeași:", options:["temperatură a solului","nebulozitate","umezeală","temperatura aerului","presiune"], answer:3},
+  {question: "Tundra este un mediu terestru specific climatului:", options:["subpolar","temperat","subecuatorial","tropical","subtropical"], answer:0},
+  {question: "În imaginea alăturată, norii cu întindere pe verticală și precipitații se numesc:", image:"cloud_cumulonimbus.jpg", options:["Nimbostratus","Cumulus","Altocumulus","Stratocumulus","Cumulonimbus"], answer:4},
+  {question: "Diagramele aerologice rezultate în prognoza meteorologică se bazează pe:", options:["imagini satelitare","citirea termometrelor","radare Doppler","citirea higrometrelor","observații cu radiosonde"], answer:4},
+  {question: "Neonul și kriptonul sunt gaze atmosferice folosite în:", options:["îngrășăminte","aluminiu","becuri","anvelope","țiglă"], answer:2},
+  {question: "Iglu este un tip de sat specific climatului:", options:["ecuatorial","polar","subtropical","musonic","temperat"], answer:1},
+  {question: "Inversiunea termică este specifică pentru:", options:["litoral","creste munți","câmpie","depresiuni intramontane","zone de podiș"], answer:3},
+  {question: "În forma de relief baric din imagine, mișcarea aerului este:", options:["ascendent vertical","divergent orizontal","convergent vertical","ascendent orizontal","descendent vertical"], answer:1},
+  {question: "Uraganul indică un fenomen meteorologic de risc:", options:["ciclon extratropical","tromba","vijelie","tornada","ciclon tropical"], answer:4},
+  {question: "Metanul este emis în cantități mari de cultura:", options:["porumb","sorg","orez","mei","grâu"], answer:2},
+  {question: "Linia care unește punctele cu aceeași cantitate de precipitații se numește:", options:["izohietă","izonefă","izohelie","izohipsă","izotahă"], answer:0},
+  {question: "Tip de așezare umană specific deșertului Gobi, afectat de risc climatic:", options:["deșertificare","inundație","ciclon tropical","secetă","viitură"], answer:0},
+  {question: "Megalopolisul Randstadt Holland se caracterizează printr-un climat:", options:["tropical","temperat oceanic","ecuatorial","temperat continental","subtropical"], answer:1},
+  {question: "Valoarea anotimpuală a temperaturii aerului la Călărași primăvara 2019:", options:["11,8°C","10,0°C","12,9°C","17,1°C","13,2°C"], answer:0},
+  {question: "Anticiclonul Azoric pune în mișcare mase de aer:", options:["ecuatorial","tropical marin","polar marin","tropical continental","polar continental"], answer:1},
+  {question: "Valorile mediate pe minimum 30 ani ale parametrilor atmosferici reprezintă:", options:["clima","nebulozitatea","vremea","variabilitatea","vizibilitatea"], answer:0},
+  {question: "Anticiclonul se caracterizează prin presiune:", options:["scăzută central","constantă","scade din periferie spre centru","mare central","uniformă"], answer:3},
+  {question: "Megalopolisul californian se caracterizează printr-un climat:", options:["subpolar","temperat-continental","subtropical","subecuatorial","tropical"], answer:1},
+  {question: "Anoicumena este specifică climatului:", options:["musonic","temperat-oceanic","ecuatorial","mediteranean","polar"], answer:1},
+  {question: "Pe o hartă sinoptică, anticiclonii și ciclonii se delimitează cu:", options:["izobare","izocronă","izotermă","izofotelă","izalobară"], answer:0},
+  {question: "Asociere între cultura agricolă și gazul cu efect de seră emis:", options:["orez – N2O","grâu – SF6","bumbac – CO","orez – CH4","mei – CFC"], answer:3},
+  {question: "Azotul, principalul gaz atmosferic, este utilizat în industria:", options:["petrochimică","siderurgică","construcții de mașini","neferoasă","îngrășăminte chimice"], answer:4},
+  {question: "Numărul de zile cu cer acoperit la Călărași pentru mai (senin 3,6, noros 20,6):", options:["7,8","5,4","6,8","8,8","6,6"], answer:0},
+  {question: "Stepa este specifică climatului:", options:["subecuatorial","temperat-continental","subtropical","musonic","temperat-oceanic"], answer:1},
+  {question: "Precipitațiile din nori Stratus, picături <0,5mm:", options:["burniță","aversă de ploaie","măzăriche moale","ninsoare","grindină"], answer:0},
+  {question: "Asocierea între resursă energetică regenerabilă și instrument meteorologic:", options:["radiație solară – barometru","vânt – pluviometru","radiație reflectată – albedometru","vânt – giruetă","radiație solară – heliograf"], answer:3},
+  {question: "Anticiclonul Est-european pune în mișcare mase de aer:", options:["tropical continental","polar continental","subtropical","tropical marin","polar marin"], answer:1},
+  {question: "Savana este specifică climatului:", options:["musonic","subtropical","ecuatorial","mediteranean","subecuatorial"], answer:2},
+  {question: "Ansamblul valorilor meteorologice la un moment dat reprezintă:", options:["vremea","climatul","vizibilitatea","clima","nebulozitatea"], answer:0},
+  {question: "În imagine, tip de așezare specific climatului:", options:["tropical","munți înalți zona temperată","polar","munți înalți zona caldă","temperat"], answer:0},
+  {question: "Megalopolisul Midlands se caracterizează prin climat:", options:["temperat continental","subtropical","ecuatorial","tropical","temperat oceanic"], answer:4},
+  {question: "Valoarea amplitudinii anuale a temperaturii aerului la Buzău (iulie 22,6, ianuarie -1,7):", options:["24,3°C","25,3°C","23,4°C","24,6°C","20,9°C"], answer:0},
+  {question: "Linia care unește puncte cu valori egale ale temperaturii aerului se numește:", options:["izobară","izotermă","izohietă","izolinie","izotendință"], answer:1},
+  {question: "Vântul local resimțit în București:", options:["Austrul","Foehn","Brizele montane","Crivățul","Vântul Mare"], answer:3},
+  {question: "Ciclonul se caracterizează prin presiune:", options:["mare central","uniformă","crește periferie → centru","scăzut central","constantă"], answer:3},
+
+  // Întrebările suplimentare pentru a ajunge la 67
+  {question: "Clima ecuatorială se caracterizează prin:", options:["precipitații abundente","precipitații rare","iarnă geroasă","vară toridă","secetă prelungită"], answer:0},
+  {question: "Frontul atmosferic rece generează:", options:["ploie torențiale și vijelii","ninge slab","vânt slab","burniță","fără precipitații"], answer:0},
+  {question: "Clima mediteraneană este specifică:", options:["sudul Europei","regiunile ecuatoriale","Canada","Siberia","Groenlanda"], answer:0},
+  {question: "Tip de relief caracteristic pentru munții tineri:", options:["alpini","plateau","câmpie","dealuri domoale","podișuri"], answer:0},
+  {question: "Principala cultură agricolă în savana africană:", options:["porumb","orez","bumbac","grâu","mei"], answer:0},
+  {question: "Tipul de nori care aduce grindină:", options:["Cumulonimbus","Stratus","Cirrus","Altocumulus","Nimbostratus"], answer:0},
+  {question: "Principala resursă atmosferică folosită în industria aluminiului:", options:["oxigen","neon","kripton","azot","hidrogen"], answer:0},
+  {question: "Clima musonică se caracterizează prin:", options:["ploi abundente sezonier","secetă permanentă","temperaturi foarte scăzute","vânturi polare","fără precipitații"], answer:0},
+  {question: "Tip de așezare umană specific zonei polare:", options:["iglu","sat tradițional african","oras tropical","sat ecuatorial","oras mediteranean"], answer:0},
+  {question: "Fenomenul Foehn este specific pentru:", options:["munți","câmpie","depresiune","litoral","podiș"], answer:0},
+  {question: "Ciclul apei include:", options:["evaporare, condensare, precipitații","doar evaporare","doar condensare","doar precipitații","doar infiltrație"], answer:0},
+  {question: "Tip de așezare specific zonei musonice:", options:["saturi și orașe în India","iglu","oras ecuatorial","oras polar","oras mediteranean"], answer:0},
+  {question: "Instrument care măsoară presiunea atmosferică:", options:["barometru","termometru","higrometru","anemometru","pluviometru"], answer:0},
+  {question: "Tip de precipitații specifice munților înalți:", options:["ploi orografice","burniță","averse","grindină","ninsoare"], answer:0},
+  {question: "Tip de climă specific savanei africane:", options:["subecuatorial","temperat oceanic","mediteranean","ecuatorial","polar"], answer:0}
+];
+const q = quizData[currentQuestion];
+  let html = `<div class="question"><strong>Întrebarea ${currentQuestion + 1}:</strong> ${q.question}</div>`;
+  if (q.image) html += `<img src="${q.image}" alt="Imagine întrebarea">`;
+  html += `<ul class="options">`;
+  q.options.forEach((opt, idx) => {
+    html += `<li><input type="radio" name="option" id="opt${idx}" value="${idx}"> <label for="opt${idx}">${opt}</label></li>`;
+  });
+  html += `</ul><button onclick="submitAnswer()">Următoarea</button>`;
+  quiz.innerHTML = html;
+}
+
+function submitAnswer() {
+  const options = document.getElementsByName("option");
+  let selected = -1;
+  options.forEach((opt) => { if (opt.checked) selected = parseInt(opt.value); });
+  if (selected === -1) { alert("Alege o opțiune!"); return; }
+  if (selected === quizData[currentQuestion].answer) score++;
+  currentQuestion++;
+  loadQuestion();
+}
+
+loadQuestion();
+</script>
+</body>
+</html>
